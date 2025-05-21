@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+    /* Kleuren */
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+    --color-primary-light: #3b82f6;
+    
+    --color-secondary: #4f46e5;
+    --color-secondary-dark: #4338ca;
+    --color-secondary-light: #6366f1;
+    
+    --color-couch-blue: #2563eb;
+    --color-couch-indigo: #4f46e5;
+    --color-couch-gray: #64748b;
+    --color-couch-dark: #1e293b;
+    --color-couch-light: #f8fafc;
+    
+    --color-sidebar: #f1f5f9;
+    --color-content: #ffffff;
+    
+    /* Lettertypes */
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    
+    /* Schaduwen */
+    --shadow-nav: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+/* Basis stijlen */
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-couch-light);
+    color: var(--color-couch-dark);
+    margin: 0;
+    min-height: 100vh;
+}
