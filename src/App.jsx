@@ -760,14 +760,14 @@ function App() {
   
   // Function to generate and download the theme
 const generateTheme = async () => {
-  try {
-    console.log('Starting theme generation...');
+try {
+  console.log('Starting theme generation...');
+  
+  // Check if we are in a production environment
+  const isProduction = window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1';
     
-    // Controleer of we in een productieomgeving zijn
-    const isProduction = window.location.hostname !== 'localhost' && 
-                        window.location.hostname !== '127.0.0.1';
-    
-    // Maak configuratiedata
+    // Create configuration data
     const themeName = formData.themeName || 'my-couchcms-theme';
     const configData = {
       projectName: formData.projectName,
@@ -916,26 +916,36 @@ define('K_COUCH_DIR', str_replace('\\', '/', dirname(__FILE__)) . '/');
     // Generate the ZIP file
     console.log('Generating ZIP file...');
     try {
+      // Use a lower compression level to reduce memory usage
       const content = await zip.generateAsync({
         type: 'blob',
         compression: 'DEFLATE',
         compressionOptions: {
-          level: 5 // Middelmatige compressie (1-9)
+          level: 3 // Lower compression level (1-9)
         }
       });
       
       // Download the ZIP file
       console.log('Downloading ZIP file...');
-      saveAs(content, `${themeName}-with-couchcms.zip`);
-      console.log('Theme generation completed successfully!');
-      alert('Je CouchCMS thema is succesvol gegenereerd en gedownload als ZIP-bestand.');
+      
+      // Add a small delay before saving to ensure browser is ready
+      setTimeout(() => {
+        try {
+          saveAs(content, `${themeName}-with-couchcms.zip`);
+          console.log('Theme generation completed successfully!');
+          alert('Your CouchCMS theme has been successfully generated and downloaded as a ZIP file.');
+        } catch (saveError) {
+          console.error('Error saving ZIP file:', saveError);
+          alert('Error downloading the ZIP file. Please try again or check your browser settings.');
+        }
+      }, 100);
     } catch (zipError) {
       console.error('Error generating ZIP:', zipError);
       throw new Error('Failed to generate ZIP file: ' + zipError.message);
     }
   } catch (error) {
     console.error('Error generating theme:', error);
-    alert('Er is een fout opgetreden bij het genereren van het thema. Probeer het opnieuw.');
+    alert('An error occurred while generating the theme. Please try again.');
   }
 }
 
